@@ -21,6 +21,8 @@
     <form action="">
       <input type="text" placeholder="Enter the place" class="form-control rounded" id="place">
       <button type="button" onclick="weather()" class="btn btn-info m-3 p-2 px-3  mb-3">Search</button>
+      <button type="button" class="btn btn-info m-3 p-2 px-3  mb-3" id="getloc">Current location</button>
+
     </form>
   </div>
   <div class="row w-100">
@@ -39,7 +41,11 @@
     </div>
     <div class="col-lg-2"></div>
   </div>
+  </div>
+  <div id="result"></div>
 </body>
+<script src="./weather.js"></script>
+
 <script>
   function weather() {
     place = place.value
@@ -61,5 +67,4 @@ wi.innerHTML=`<i class="fa-solid fa-wind fa-lg" style="color: #6eb2f2;"></i>  wi
   }
 }
 </script>
-
 </html>
