@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./weather.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="m-0 ">
+  <div class="ni ">
+    <img src="./img/cloudsun-removebg-preview.png" alt="" class="h-100 i ps-3 pt-3">
+  </div>
+  <div class="search text-center p-2 pt-5">
+    <form action="">
+      <input type="text" placeholder="Enter the place" class="form-control rounded" id="place">
+      <button type="button" onclick="weather()" class="btn btn-info m-3 p-2 px-3  mb-3">Search</button>
+    </form>
+  </div>
+  <div class="row w-100">
+    <div class="col-lg-6 col-sm-12 ms-auto r">
+      <img src="./img/all-removebg-preview.png" alt="" class="w-50 i2 ">
+    </div>
+    <div class="col-lg-4 col-sm-12 text-center text-light">
+      <div class=" p-2" id="temp"><h1>26°C</h1></div>
+      <div class=" px-2" id="cl" ><h5><i class="fa-solid fa-cloud fa-sm" style="color: #76cdf9;"></i> Drizzle</h5></div>
+      <div class=" p-2 " id="pl" ><h3>samoa, WS</h3></div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6 p-3" id="hu"><i class="fa-solid fa-droplet fa-lg" style="color: #73b5f2;"></i>  humidity:67%
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6 p-3 " id="wi"><i class="fa-solid fa-wind fa-lg" style="color: #6eb2f2;"></i>  wind:2Km/h</div>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</body>
+<script>
+  function weather() {
+    place = place.value
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=5b4bee0ba241d092159faf007e166080`).then(response => response.json()).then(out => displayData(out))
+    function displayData(dataArray){
+    const temperatureKelvin = dataArray.main.temp;
+
+// Convert Kelvin to Celsius
+const temperatureCelsius = Math.round(temperatureKelvin - 273.15)
+const humidity = dataArray.main.humidity;
+const wind = dataArray.wind.speed; 
+const cloud=dataArray.weather[0].main;
+const plac=dataArray.name;
+pl.innerHTML=`<h5>${plac}</h5>`
+hu.innerHTML=`<i class="fa-solid fa-droplet fa-lg" style="color: #73b5f2;"></i> humidity:${humidity}%`
+temp.innerHTML=`<h1>${temperatureCelsius}°C</h1>`
+cl.innerHTML=`<h5><i class="fa-solid fa-cloud fa-lg" style="color: #76cdf9;"></i> ${cloud}</h5>`
+wi.innerHTML=`<i class="fa-solid fa-wind fa-lg" style="color: #6eb2f2;"></i>  wind:${wind}km/h`
+  }
+}
+</script>
+
+</html>
